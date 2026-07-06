@@ -1,0 +1,108 @@
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT: citypulse-dev
+  GCP_REGION: us-central1
+  BACKEND_SERVICE: citypulse-backend
+  FRONTEND_SERVICE: citypulse-frontend
+  WIF_PROVIDER: projects/929818377595/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+  SERVICE_ACCOUNT: github-actions@citypulse-dev.iam.gserviceaccount.com
+
+jobs:
+  deploy:
+    name: Build and Deploy to Google Cloud Run
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy Backend to Cloud Run
+        id: deploy-backend
+        run: |
+          echo "Deploying backend service from project root..."
+          gcloud run deploy ${{ env.BACKEND_SERVICE }} \
+            --source . \
+            --region ${{ env.GCP_REGION }} \
+            --port 8000 \
+            --min-instances 0 \
+            --max-instances 3 \
+            --memory 512Mi \
+            --cpu 1 \
+            --concurrency 80 \
+            --timeout 300 \
+            --set-env-vars CITYPULSE_ENV=production,CITYPULSE_DATA_DIR=./data/datasets,CITYPULSE_LOG_LEVEL=INFO,CITYPULSE_CORS_ORIGINS=* \
+            --set-secrets CITYPULSE_GEMINI_API_KEY=citypulse-gemini-key:latest \
+            --allow-unauthenticated \
+            --project ${{ env.GCP_PROJECT }}
+
+      - name: Get Deployed Backend URL
+        id: get-backend-url
+        run: |
+          BACKEND_URL=$(gcloud run services describe ${{ env.BACKEND_SERVICE }} --region ${{ env.GCP_REGION }} --project ${{ env.GCP_PROJECT }} --format="value(status.url)")
+          echo "BACKEND_URL=$BACKEND_URL" >> $GITHUB_ENV
+          echo "Backend deployed at: $BACKEND_URL"
+
+      - name: Create Frontend .env.production
+        run: |
+          echo "Baking backend URL into frontend build..."
+          echo "VITE_API_URL=${{ env.BACKEND_URL }}" > frontend/.env.production
+          cat frontend/.env.production
+
+      - name: Deploy Frontend to Cloud Run
+        id: deploy-frontend
+        run: |
+          echo "Deploying frontend service from ./frontend..."
+          gcloud run deploy ${{ env.FRONTEND_SERVICE }} \
+            --source ./frontend \
+            --region ${{ env.GCP_REGION }} \
+            --port 8080 \
+            --min-instances 0 \
+            --max-instances 3 \
+            --memory 256Mi \
+            --cpu 1 \
+            --concurrency 80 \
+            --allow-unauthenticated \
+            --project ${{ env.GCP_PROJECT }}
+
+      - name: Get Deployed Frontend URL
+        id: get-frontend-url
+        run: |
+          FRONTEND_URL=$(gcloud run services describe ${{ env.FRONTEND_SERVICE }} --region ${{ env.GCP_REGION }} --project ${{ env.GCP_PROJECT }} --format="value(status.url)")
+          echo "FRONTEND_URL=$FRONTEND_URL" >> $GITHUB_ENV
+          echo "Frontend deployed at: $FRONTEND_URL"
+
+      - name: Update Backend CORS Origins with Deployed Frontend URL
+        run: |
+          echo "Locking down Backend CORS to Frontend URL..."
+          gcloud run services update ${{ env.BACKEND_SERVICE }} \
+            --region ${{ env.GCP_REGION }} \
+            --project ${{ env.GCP_PROJECT }} \
+            --update-env-vars CITYPULSE_CORS_ORIGINS=${{ env.FRONTEND_URL }}
+
+      - name: Deployment Summary
+        run: |
+          echo "🎉 Automated Full-Stack Deployment Successful!"
+          echo "Backend URL: ${{ env.BACKEND_URL }}"
+          echo "Frontend URL: ${{ env.FRONTEND_URL }}"
+          echo "API Docs: ${{ env.BACKEND_URL }}/docs"

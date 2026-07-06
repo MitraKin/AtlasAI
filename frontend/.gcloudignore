@@ -1,0 +1,13 @@
+# Node
+node_modules/
+dist/
+
+# Tests
+src/__tests__/
+*.test.ts
+*.test.tsx
+test-setup.ts
+
+# IDE
+.vscode/
+.idea/

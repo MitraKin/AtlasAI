@@ -1,6 +1,7 @@
 import type { RecommendResponse, ZoneSummary, ChatMessage, Strategy } from '../types'
 
-const API = '/api/v1'
+const BASE = import.meta.env.VITE_API_URL || ''
+const API = `${BASE}/api/v1`
 
 async function post<T>(path: string, body: unknown): Promise<T> {
   const res = await fetch(`${API}${path}`, {

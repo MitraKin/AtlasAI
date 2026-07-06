@@ -1,0 +1,37 @@
+# Git
+.git/
+.gitignore
+
+# Python
+.venv/
+venv/
+backend/.venv/
+backend/.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Node.js
+frontend/node_modules/
+frontend/dist/
+
+# IDE & Tools
+.commandcode/
+.idea/
+.vscode/
+
+# Database files (rebuilt at runtime from CSVs)
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment & secrets
+.env
+backend/.env
+
+# Unnecessary for backend deploy
+frontend/
+docker/Dockerfile.frontend
+deployment.md
+docker-compose.yml
