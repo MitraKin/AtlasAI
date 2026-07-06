@@ -33,7 +33,7 @@ async def recommend(
                 rank=r["rank"],
                 zone_id=r["zone_id"],
                 zone_name=r.get("zone_name", r["zone_id"]),
-                composite_score=r["composite_score"],
+                composite_score=min(100.0, max(0.0, round(float(r["composite_score"]), 1))),
                 confidence=r["confidence"],
                 suggested_budget_allocation=r.get("suggested_budget_allocation", 0),
                 justification=r.get("justification", ""),

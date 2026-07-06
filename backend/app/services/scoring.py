@@ -92,9 +92,12 @@ def compute_zone_scores(
             "equity_factor": norm_equity[i],
         }
 
-        composite = sum(
-            factor_scores[k] * weights.get(k, 0) for k in factor_scores
-        )
+        total_weight = sum(weights.get(k, 0) for k in factor_scores)
+        if total_weight > 0:
+            composite = sum(factor_scores[k] * weights.get(k, 0) for k in factor_scores) / total_weight
+        else:
+            composite = 0.0
+        composite = min(100.0, max(0.0, composite))
 
         confidence = compute_confidence(zone_data[i])
 
