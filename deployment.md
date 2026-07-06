@@ -60,19 +60,32 @@ Project: citypulse-dev
 ```
 AtlasAI/
 ├── backend/
-│   ├── app/                  # FastAPI application
-│   ├── docker/               # Dockerfile.backend
+│   ├── app/                   # FastAPI application
+│   │   ├── agents/            # Data, Reasoning, Policy agents
+│   │   ├── api/               # REST endpoints (v1)
+│   │   ├── core/              # Logging, exceptions
+│   │   ├── models/
+│   │   ├── repositories/      # Data access layer
+│   │   └── services/          # Gemini, scoring, recommendations
+│   ├── tests/                 # Unit + integration tests
 │   ├── requirements.txt
-│   └── .env                  # Dev-only — do NOT deploy
+│   └── pyproject.toml
 ├── frontend/
-│   ├── src/                  # React application
-│   ├── docker/               # Dockerfile.frontend
+│   ├── src/                   # React + TypeScript
+│   │   ├── components/        # map, scoring, reasoning, etc.
+│   │   ├── pages/             # Ask, Dashboard, Landing, etc.
+│   │   ├── services/          # API client
+│   │   └── stores/            # Zustand state
 │   └── nginx.conf
+├── docker/
+│   ├── Dockerfile.backend
+│   └── Dockerfile.frontend
 ├── data/
-│   ├── datasets/             # Synthetic CSV + GeoJSON
+│   ├── datasets/              # Synthetic CSV + GeoJSON (15 zones)
 │   └── generate_data.py
-├── docker-compose.yml        # Local dev only
-└── deployment.md             # This file
+├── .gitignore
+├── docker-compose.yml         # Local dev only
+└── deployment.md              # This file
 ```
 
 ---
@@ -199,7 +212,7 @@ spec:
           value: "./data/datasets"
         - name: CITYPULSE_LOG_LEVEL
           value: "INFO"
-        - name: GEMINI_API_KEY
+        - name: CITYPULSE_GEMINI_API_KEY
           valueFrom:
             secretKeyRef:
               name: citypulse-gemini-key
@@ -251,16 +264,15 @@ spec:
 ### 4.7 Build & Push Docker Images
 
 ```bash
+# Build both from project root
 # Backend
-cd backend
 docker build -t us-central1-docker.pkg.dev/citypulse-dev/citypulse-repo/backend:latest \
-  -f ../docker/Dockerfile.backend .
+  -f docker/Dockerfile.backend .
 docker push us-central1-docker.pkg.dev/citypulse-dev/citypulse-repo/backend:latest
 
 # Frontend
-cd ../frontend
 docker build -t us-central1-docker.pkg.dev/citypulse-dev/citypulse-repo/frontend:latest \
-  -f ../docker/Dockerfile.frontend .
+  -f docker/Dockerfile.frontend ./frontend
 docker push us-central1-docker.pkg.dev/citypulse-dev/citypulse-repo/frontend:latest
 ```
 
@@ -278,8 +290,8 @@ gcloud run deploy citypulse-backend \
   --concurrency=80 \
   --timeout=300 \
   --service-account=citypulse-dev-sa@citypulse-dev.iam.gserviceaccount.com \
-  --set-env-vars=^:^CITYPULSE_ENV=production:CITYPULSE_GCP_PROJECT=citypulse-dev:CITYPULSE_LOG_LEVEL=INFO \
-  --set-secrets=GEMINI_API_KEY=citypulse-gemini-key:latest \
+  --set-env-vars=^:^CITYPULSE_ENV=production:CITYPULSE_GCP_PROJECT=citypulse-dev:CITYPULSE_DATA_DIR=./data/datasets:CITYPULSE_LOG_LEVEL=INFO \
+  --set-secrets=CITYPULSE_GEMINI_API_KEY=citypulse-gemini-key:latest \
   --allow-unauthenticated
 
 # Get backend URL
@@ -363,7 +375,7 @@ services:
       CITYPULSE_GCP_PROJECT: citypulse-dev
       CITYPULSE_LOG_LEVEL: INFO
     secrets:
-      - GEMINI_API_KEY
+      - CITYPULSE_GEMINI_API_KEY
 
   frontend:
     type: cloud-run
@@ -508,7 +520,7 @@ gcloud projects delete citypulse-dev --quiet
 
 | Symptom | Likely Cause | Fix |
 |---------|-------------|-----|
-| Cloud Run fails to start | Missing `GEMINI_API_KEY` secret | Verify secret exists and SA has access |
+| Cloud Run fails to start | Missing `CITYPULSE_GEMINI_API_KEY` secret | Verify secret exists and SA has access |
 | `POST /recommend` returns 500 | BigQuery not configured | Set `CITYPULSE_DATA_DIR=./data/datasets` for SQLite fallback |
 | CORS errors from frontend | CORS origins not updated | Run step 4.9 to update backend CORS |
 | Cold start > 5 seconds | No min instances | Set `--min-instances=1` |
@@ -525,7 +537,7 @@ When moving from prototype to production:
 |------|-----------|-----------|
 | **Data** | SQLite / synthetic | BigQuery with real municipal data |
 | **Auth** | None (open access) | Google IAP or OAuth2 |
-| **Gemini** | Optional pattern matching | Full Gemini 2.0 Flash integration |
+| **Gemini** | Full Gemini 2.0 Flash (with SQLite fallback) | Gemini 2.0 Flash with BigQuery |
 | **Region** | Single (us-central1) | Multi-region with failover |
 | **CI/CD** | Manual deploy | Cloud Build pipeline |
 | **Cache** | None | Redis / Memorystore |

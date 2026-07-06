@@ -1,8 +1,8 @@
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: ../docker/Dockerfile.backend
+      context: .
+      dockerfile: docker/Dockerfile.backend
     ports:
       - "8000:8000"
     environment:
@@ -10,7 +10,7 @@ services:
       - CITYPULSE_DATA_DIR=./data/datasets
       - CITYPULSE_CORS_ORIGINS=["http://localhost:5173","http://localhost:3000"]
     volumes:
-      - ./data:/app/data
+      - ./data:/app/data:ro
     restart: unless-stopped
 
   frontend:
