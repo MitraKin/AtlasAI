@@ -92,14 +92,6 @@ jobs:
           echo "FRONTEND_URL=$FRONTEND_URL" >> $GITHUB_ENV
           echo "Frontend deployed at: $FRONTEND_URL"
 
-      - name: Update Backend CORS Origins with Deployed Frontend URL
-        run: |
-          echo "Locking down Backend CORS to Frontend URL..."
-          gcloud run services update ${{ env.BACKEND_SERVICE }} \
-            --region ${{ env.GCP_REGION }} \
-            --project ${{ env.GCP_PROJECT }} \
-            --update-env-vars CITYPULSE_CORS_ORIGINS=${{ env.FRONTEND_URL }}
-
       - name: Deployment Summary
         run: |
           echo "🎉 Automated Full-Stack Deployment Successful!"
