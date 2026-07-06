@@ -1,0 +1,575 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z01",
+        "zone_name": "Downtown Core",
+        "area_sqkm": 12.5,
+        "population": 85000,
+        "median_income": 72000,
+        "population_density": 6800
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.42,
+              17.35
+            ],
+            [
+              78.456,
+              17.35
+            ],
+            [
+              78.456,
+              17.404
+            ],
+            [
+              78.42,
+              17.404
+            ],
+            [
+              78.42,
+              17.35
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z02",
+        "zone_name": "North Hills",
+        "area_sqkm": 18.3,
+        "population": 62000,
+        "median_income": 55000,
+        "population_density": 3388
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.46000000000001,
+              17.35
+            ],
+            [
+              78.49600000000001,
+              17.35
+            ],
+            [
+              78.49600000000001,
+              17.404
+            ],
+            [
+              78.46000000000001,
+              17.404
+            ],
+            [
+              78.46000000000001,
+              17.35
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z03",
+        "zone_name": "East Junction",
+        "area_sqkm": 22.1,
+        "population": 78000,
+        "median_income": 48000,
+        "population_density": 3529
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.5,
+              17.35
+            ],
+            [
+              78.536,
+              17.35
+            ],
+            [
+              78.536,
+              17.404
+            ],
+            [
+              78.5,
+              17.404
+            ],
+            [
+              78.5,
+              17.35
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z04",
+        "zone_name": "South Market",
+        "area_sqkm": 15.7,
+        "population": 95000,
+        "median_income": 41000,
+        "population_density": 6051
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.54,
+              17.35
+            ],
+            [
+              78.57600000000001,
+              17.35
+            ],
+            [
+              78.57600000000001,
+              17.404
+            ],
+            [
+              78.54,
+              17.404
+            ],
+            [
+              78.54,
+              17.35
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z05",
+        "zone_name": "West Gate",
+        "area_sqkm": 20.4,
+        "population": 72000,
+        "median_income": 65000,
+        "population_density": 3529
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.58,
+              17.35
+            ],
+            [
+              78.616,
+              17.35
+            ],
+            [
+              78.616,
+              17.404
+            ],
+            [
+              78.58,
+              17.404
+            ],
+            [
+              78.58,
+              17.35
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z06",
+        "zone_name": "Riverside",
+        "area_sqkm": 14.2,
+        "population": 58000,
+        "median_income": 68000,
+        "population_density": 4085
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.42,
+              17.41
+            ],
+            [
+              78.456,
+              17.41
+            ],
+            [
+              78.456,
+              17.464
+            ],
+            [
+              78.42,
+              17.464
+            ],
+            [
+              78.42,
+              17.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z07",
+        "zone_name": "Old Town",
+        "area_sqkm": 11.8,
+        "population": 68000,
+        "median_income": 39000,
+        "population_density": 5763
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.46000000000001,
+              17.41
+            ],
+            [
+              78.49600000000001,
+              17.41
+            ],
+            [
+              78.49600000000001,
+              17.464
+            ],
+            [
+              78.46000000000001,
+              17.464
+            ],
+            [
+              78.46000000000001,
+              17.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z08",
+        "zone_name": "Tech Park",
+        "area_sqkm": 19.6,
+        "population": 52000,
+        "median_income": 105000,
+        "population_density": 2653
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.5,
+              17.41
+            ],
+            [
+              78.536,
+              17.41
+            ],
+            [
+              78.536,
+              17.464
+            ],
+            [
+              78.5,
+              17.464
+            ],
+            [
+              78.5,
+              17.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z09",
+        "zone_name": "Lakeview",
+        "area_sqkm": 16.3,
+        "population": 61000,
+        "median_income": 59000,
+        "population_density": 3742
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.54,
+              17.41
+            ],
+            [
+              78.57600000000001,
+              17.41
+            ],
+            [
+              78.57600000000001,
+              17.464
+            ],
+            [
+              78.54,
+              17.464
+            ],
+            [
+              78.54,
+              17.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z10",
+        "zone_name": "Industrial Zone",
+        "area_sqkm": 25.8,
+        "population": 45000,
+        "median_income": 36000,
+        "population_density": 1744
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.58,
+              17.41
+            ],
+            [
+              78.616,
+              17.41
+            ],
+            [
+              78.616,
+              17.464
+            ],
+            [
+              78.58,
+              17.464
+            ],
+            [
+              78.58,
+              17.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z11",
+        "zone_name": "Greenfield",
+        "area_sqkm": 21.5,
+        "population": 71000,
+        "median_income": 78000,
+        "population_density": 3302
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.42,
+              17.470000000000002
+            ],
+            [
+              78.456,
+              17.470000000000002
+            ],
+            [
+              78.456,
+              17.524
+            ],
+            [
+              78.42,
+              17.524
+            ],
+            [
+              78.42,
+              17.470000000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z12",
+        "zone_name": "Harbour Point",
+        "area_sqkm": 13.9,
+        "population": 56000,
+        "median_income": 62000,
+        "population_density": 4029
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.46000000000001,
+              17.470000000000002
+            ],
+            [
+              78.49600000000001,
+              17.470000000000002
+            ],
+            [
+              78.49600000000001,
+              17.524
+            ],
+            [
+              78.46000000000001,
+              17.524
+            ],
+            [
+              78.46000000000001,
+              17.470000000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z13",
+        "zone_name": "University District",
+        "area_sqkm": 17.2,
+        "population": 88000,
+        "median_income": 44000,
+        "population_density": 5116
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.5,
+              17.470000000000002
+            ],
+            [
+              78.536,
+              17.470000000000002
+            ],
+            [
+              78.536,
+              17.524
+            ],
+            [
+              78.5,
+              17.524
+            ],
+            [
+              78.5,
+              17.470000000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z14",
+        "zone_name": "Hilltop",
+        "area_sqkm": 24.1,
+        "population": 49000,
+        "median_income": 92000,
+        "population_density": 2033
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.54,
+              17.470000000000002
+            ],
+            [
+              78.57600000000001,
+              17.470000000000002
+            ],
+            [
+              78.57600000000001,
+              17.524
+            ],
+            [
+              78.54,
+              17.524
+            ],
+            [
+              78.54,
+              17.470000000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "Z15",
+        "zone_name": "Central Park",
+        "area_sqkm": 13.5,
+        "population": 75000,
+        "median_income": 56000,
+        "population_density": 5556
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.58,
+              17.470000000000002
+            ],
+            [
+              78.616,
+              17.470000000000002
+            ],
+            [
+              78.616,
+              17.524
+            ],
+            [
+              78.58,
+              17.524
+            ],
+            [
+              78.58,
+              17.470000000000002
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

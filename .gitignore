@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Node.js / Frontend
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+.vite/
+.vite-temp/
+.npm/
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+service-account.json
+
+# Database / Data
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE & Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Coverage
+coverage/
+.coverage
+htmlcov/
+.commandcode
